@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Поиск машин{% endblock %}
+{% block content %}
+<h2>Поиск машины</h2>
+<form method="get" action="/">
+  <input type="text" name="factory_number" placeholder="Введите заводской номер" value="{{ query }}" required>
+  <button class="button" type="submit">Искать</button>
+</form>
+{% if machine_found %}
+  <h3 style="color:green;">Машина найдена:</h3>
+  <ul>
+    <li>Модель: {{ machine_found.machine_model }}</li>
+    <li>Клиент: {{ machine_found.client }}</li>
+    <li>Сервисная компания: {{ machine_found.service_company }}</li>
+    <li>Дата отгрузки: {{ machine_found.shipment_date }}</li>
+  </ul>
+{% elif query %}
+  <h3 style="color:red;">Машина с таким номером не найдена.</h3>
+{% endif %}
+{% endblock %}

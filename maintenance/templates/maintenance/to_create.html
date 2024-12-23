@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Добавить запись ТО</h1>
+
+<form method="post" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn-red">Сохранить</button>
+</form>
+
+{% endblock content %}

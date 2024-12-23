@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Список Машин</h2>
+
+<!-- Фильтр -->
+<form method="get">
+  Модель техники: <input type="text" name="model" value="{{ request.GET.model }}">
+  Сервисная компания: <input type="text" name="service" value="{{ request.GET.service }}">
+  <button type="submit">Фильтр</button>
+</form>
+
+<a href="{% url 'machine-create' %}" style="margin:10px 0; display:inline-block;">Добавить машину</a>
+
+<table border="1" cellpadding="5" style="margin-top:10px;">
+  <tr>
+    <th>Зав. № машины</th>
+    <th>Модель</th>
+    <th>Клиент</th>
+    <th>Сервисная компания</th>
+    <th>Дата отгрузки</th>
+    <th></th> <!-- для редактирования -->
+  </tr>
+  {% for m in machines %}
+  <tr>
+    <td>{{ m.factory_number }}</td>
+    <td>{{ m.machine_model }}</td>
+    <td>{{ m.client }}</td>
+    <td>{{ m.service_company }}</td>
+    <td>{{ m.shipment_date }}</td>
+    <td>
+      <a href="{% url 'machine-edit' m.pk %}">Редактировать</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock content %}

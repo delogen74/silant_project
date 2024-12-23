@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Список Рекламаций</h2>
+
+<form method="get">
+  Узел отказа: <input type="text" name="failure_node" value="{{ request.GET.failure_node }}">
+  Сервисная компания: <input type="text" name="service" value="{{ request.GET.service }}">
+  <button type="submit">Фильтр</button>
+</form>
+
+<a href="{% url 'reclamation-create' %}" style="margin:10px 0; display:inline-block;">Добавить рекламацию</a>
+
+<table border="1" cellpadding="5" style="margin-top:10px;">
+  <tr>
+    <th>Машина</th>
+    <th>Узел отказа</th>
+    <th>Описание</th>
+    <th>Дата отказа</th>
+    <th>Простой (дн)</th>
+    <th>Сервисная компания</th>
+    <th></th>
+  </tr>
+  {% for r in records %}
+  <tr>
+    <td>{{ r.machine.factory_number }}</td>
+    <td>{{ r.failure_node }}</td>
+    <td>{{ r.failure_description }}</td>
+    <td>{{ r.failure_date }}</td>
+    <td>{{ r.downtime }}</td>
+    <td>{{ r.service_company }}</td>
+    <td>
+      <a href="{% url 'reclamation-edit' r.pk %}">Редактировать</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock content %}

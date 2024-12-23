@@ -1,0 +1,47 @@
+/* Основные цвета */
+body {
+    font-family: 'PT Astra Sans', sans-serif;
+    background-color: #EBE6D6;
+    color: #163E6C;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background-color: #163E6C;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+a {
+    color: #D20A11;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background-color: #D20A11;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #A50C0F;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    header, footer {
+        font-size: 16px;
+    }
+}

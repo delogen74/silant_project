@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Личный кабинет{% endblock title %}
+
+{% block content %}
+<div style="padding:20px;">
+  <h2>Добро пожаловать, {{ request.user.username }} (роль: {{ request.user.role }})</h2>
+
+  <!-- Вкладки -->
+  <ul style="list-style:none; display:flex; gap:10px; padding:0;">
+    <li><a href="?tab=machines">Машины</a></li>
+    <li><a href="?tab=to">ТО</a></li>
+    <li><a href="?tab=claims">Рекламации</a></li>
+  </ul>
+  <hr>
+
+  {% if tab == 'machines' %}
+    <h3>Список машин (доступных пользователю)</h3>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th>Зав. №</th>
+        <th>Модель</th>
+        <th>Дата отгрузки</th>
+        <th>Клиент</th>
+        <th>Сервисная компания</th>
+      </tr>
+      {% for m in machines %}
+      <tr>
+        <td>{{ m.factory_number }}</td>
+        <td>{{ m.machine_model }}</td>
+        <td>{{ m.shipment_date }}</td>
+        <td>{{ m.client }}</td>
+        <td>{{ m.service_company }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+  {% elif tab == 'to' %}
+    <h3>ТО (техобслуживание)</h3>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th>Зав. № машины</th>
+        <th>Вид ТО</th>
+        <th>Дата проведения ТО</th>
+        <th>Наработка</th>
+        <th>Сервисная компания</th>
+      </tr>
+      {% for t in to_list %}
+      <tr>
+        <td>{{ t.machine.factory_number }}</td>
+        <td>{{ t.to_type }}</td>
+        <td>{{ t.date_performed }}</td>
+        <td>{{ t.operating_time }}</td>
+        <td>{{ t.service_company }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+  {% elif tab == 'claims' %}
+    <h3>Рекламации</h3>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th>Зав. № машины</th>
+        <th>Узел отказа</th>
+        <th>Описание</th>
+        <th>Дата отказа</th>
+        <th>Время простоя</th>
+      </tr>
+      {% for c in claims %}
+      <tr>
+        <td>{{ c.machine.factory_number }}</td>
+        <td>{{ c.failure_node }}</td>
+        <td>{{ c.failure_description }}</td>
+        <td>{{ c.failure_date }}</td>
+        <td>{{ c.downtime }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+</div>
+{% endblock content %}

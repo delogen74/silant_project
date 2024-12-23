@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Список ТО</h1>
+
+<form method="get" action="">
+  Вид ТО: <input type="text" name="to_type" value="{{ request.GET.to_type }}">
+  Сервисная компания: <input type="text" name="service" value="{{ request.GET.service }}">
+  <button type="submit">Фильтр</button>
+</form>
+
+<a href="{% url 'to-create' %}" class="btn-red">Добавить запись ТО</a>
+
+<table border="1" cellpadding="5" style="margin-top:10px;">
+  <tr>
+    <th>Машина</th>
+    <th>Вид ТО</th>
+    <th>Дата</th>
+    <th>Наработка</th>
+    <th>Сервисная компания</th>
+    <th></th> <!-- Колонка для "Редактировать" -->
+  </tr>
+  {% for item in records %}
+  <tr>
+    <td>{{ item.machine.factory_number }}</td>
+    <td>{{ item.to_type }}</td>
+    <td>{{ item.date_performed }}</td>
+    <td>{{ item.operating_time }}</td>
+    <td>{{ item.service_company }}</td>
+    <td>
+      <a href="{% url 'to-edit' item.pk %}">Редактировать</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Дашборд{% endblock title %}
+
+{% block content %}
+<h2>Личный кабинет</h2>
+<p>Добро пожаловать, {{ request.user.username }}!</p>
+
+<ul>
+  <li><a href="/machines/">Машины</a></li>
+  <li><a href="/to/">ТО</a></li>
+  <li><a href="/claims/">Рекламации</a></li>
+</ul>
+
+{% endblock content %}
